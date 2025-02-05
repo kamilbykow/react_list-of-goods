@@ -39,11 +39,11 @@ export function getReorderedGoods(
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
-  if (sortType === ('ALPHABET' as unknown as SortType)) {
+  if (sortType === SortType.ALPHABET) {
     visibleGoods.sort((a, b) => a.localeCompare(b));
   }
 
-  if (sortType === ('LENGTH' as unknown as SortType)) {
+  if (sortType === SortType.LENGTH) {
     visibleGoods.sort((a, b) => a.length - b.length);
   }
 
@@ -62,7 +62,7 @@ export function getReorderedGoods(
 
 export class App extends React.Component {
   state: ReorderOptions = {
-    sortType: 'NONE' as unknown as SortType,
+    sortType: SortType.NONE,
     isReversed: false,
   };
 
@@ -73,35 +73,35 @@ export class App extends React.Component {
   };
 
   sortAlphabetically = () => {
-    this.setState({ sortType: 'ALPHABET' });
+    this.setState({ sortType: SortType.ALPHABET });
   };
 
   sortByLenght = () => {
-    this.setState({ sortType: 'LENGTH' });
+    this.setState({ sortType: SortType.LENGTH });
   };
 
   reset = () => {
     this.goodsList = [...goodsFromServer];
     this.setState({
       isReversed: false,
-      sortType: 'NONE',
+      sortType: SortType.NONE,
     });
   };
 
   render() {
     const { sortType, isReversed } = this.state;
 
-    const usedList = sortType !== ('NONE' as unknown as SortType) || isReversed;
+    const usedList = sortType !== SortType.NONE || isReversed;
     const infoBtn = classNames({
       button: true,
       'is-info': true,
-      'is-light': sortType !== ('ALPHABET' as unknown as SortType),
+      'is-light': sortType !== SortType.ALPHABET,
     });
 
     const succesBtn = classNames({
       button: true,
       'is-success': true,
-      'is-light': sortType !== ('LENGTH' as unknown as SortType),
+      'is-light': sortType !== SortType.LENGTH,
     });
     const warnBtn = classNames({
       button: true,
